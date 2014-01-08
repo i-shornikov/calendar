@@ -1,0 +1,20 @@
+block b-event {
+
+    js: {
+        id: this.ctx.id
+    }
+
+    content: [
+        {
+            elem: 'title',
+            tag: 'span',
+            content: this.ctx.title
+        },
+        ' – ',
+        {
+            block: 'link',
+            mix: [{ block: 'b-event', elem: 'remove' }],
+            content: 'Удалить'
+        }
+    ]
+}

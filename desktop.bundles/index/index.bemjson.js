@@ -11,6 +11,7 @@
         {
             block: 'b-diary'
         },
+        { elem: 'js', url: 'index.bemhtml.js' },
         { elem: 'js', url: '_index.js' }
     ]
 })

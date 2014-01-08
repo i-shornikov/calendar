@@ -1,0 +1,32 @@
+block b-diary {
+
+    js: true
+
+    content: [
+        { elem: 'header', content: 'Дневник', tag: 'h1' },
+        { elem: 'date', content: (new Date()).toString() },
+        {
+            elem: 'new-event',
+            content: [
+                {
+                    block: 'input',
+                    mix: [{ block: 'b-diary', elem: 'new-event-title' }],
+                    content: { elem: 'control' }
+                },
+                {
+                    block: 'button',
+                    mix: [{ block: 'b-diary', elem: 'new-event-btn' }],
+                    content: 'Добавить'
+                }
+            ]
+        },
+        {
+            elem: 'events',
+            content: [
+                { elem: 'title', content: 'События', tag: 'h2' },
+                { elem: 'events-list' }
+            ]
+        }
+    ]
+
+}
