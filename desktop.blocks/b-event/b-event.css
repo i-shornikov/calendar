@@ -1,0 +1,27 @@
+.b-event{
+    padding: 4px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 5px;
+    list-style-type: none;
+    text-align: left;
+}
+
+.b-event:hover{
+    background-color: #f9f9f9;
+}
+
+.b-event__remove{
+    color: red;
+    font-size: 10px;
+    font-style: italic;
+    cursor: pointer;
+    display: inline;
+    text-align: right;
+    opacity: 0.2;
+    float: right;
+}
+
+.b-event__remove:hover{
+    opacity: 1;
+}

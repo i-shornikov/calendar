@@ -3,8 +3,29 @@ block b-diary {
     js: true
 
     content: [
-        { elem: 'header', content: 'Дневник', tag: 'h1' },
-        { elem: 'date', content: (new Date()).toString() },
+        { elem: 'header', content: 'Ежедневник', tag: 'h1' },
+		{
+            elem: 'control',
+            content: [
+                {
+                    block: 'button',
+                    content: ' << ',
+                    mix: [{ block: 'b-diary', elem: 'preview' }]
+                },
+                {
+                    elem: 'date'
+                },
+                {
+                    block: 'button',
+                    content: ' >> ',
+                    mix: [{ block: 'b-diary', elem: 'next' }]
+                }
+            ]
+        },
+        {
+            elem: 'events',
+            content: [ { elem: 'events-list' } ]
+        },
         {
             elem: 'new-event',
             content: [
@@ -19,14 +40,7 @@ block b-diary {
                     content: 'Добавить'
                 }
             ]
-        },
-        {
-            elem: 'events',
-            content: [
-                { elem: 'title', content: 'События', tag: 'h2' },
-                { elem: 'events-list' }
-            ]
         }
     ]
-
+	
 }

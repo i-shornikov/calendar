@@ -10,7 +10,6 @@ block b-event {
             tag: 'span',
             content: this.ctx.title
         },
-        ' – ',
         {
             block: 'link',
             mix: [{ block: 'b-event', elem: 'remove' }],

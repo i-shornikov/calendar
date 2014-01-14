@@ -1,0 +1,63 @@
+.b-diary{
+    width: auto;
+    min-width: 250px;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1.b-diary__header{
+    color: #5f6260;
+    text-aligin: center;
+    display: block;
+}
+
+.b-diary__date{
+    color: #5f6260;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+.control__preview, .control__next, .b-diary__date{
+    display: inline;
+}
+
+.b-diary__control{
+    padding: 10px;
+}
+
+.b-diary__events-list{
+    margin: 0 auto;
+    width: 300px;
+    height: auto;
+    padding: 10px;
+}
+
+.b-diary button{
+    -moz-box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+    background: -moz-linear-gradient(center top, #79bbff 5%, #378de5 100%);
+    background-color: #79bbff;
+    -moz-border-radius: 42px;
+    -webkit-border-radius: 42px;
+    border-radius: 42px;
+    display: inline-block;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 6px 8px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px #528ecc;
+}
+
+.b-diary button:hover{
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+    background: -moz-linear-gradient(center top, #378de5 5%, #79bbff 100%);
+    background-color: #378de5;}
+
+.b-diary__new-event{
+    padding: 10px;
+}
