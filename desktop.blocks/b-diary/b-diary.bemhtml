@@ -4,21 +4,31 @@ block b-diary {
 
     content: [
         { elem: 'header', content: 'Ежедневник', tag: 'h1' },
-		{
+        {
             elem: 'control',
             content: [
                 {
                     block: 'button',
                     content: ' << ',
-                    mix: [{ block: 'b-diary', elem: 'preview' }]
+                    mix: [{ block: 'b-diary', elem: 'previewMonth' }]
+                },
+                {
+                    block: 'button',
+                    content: ' < ',
+                    mix: [{ block: 'b-diary', elem: 'previewDay' }]
                 },
                 {
                     elem: 'date'
                 },
                 {
                     block: 'button',
+                    content: ' > ',
+                    mix: [{ block: 'b-diary', elem: 'nextDay' }]
+                },
+                {
+                    block: 'button',
                     content: ' >> ',
-                    mix: [{ block: 'b-diary', elem: 'next' }]
+                    mix: [{ block: 'b-diary', elem: 'nextMonth' }]
                 }
             ]
         },
@@ -29,6 +39,9 @@ block b-diary {
         {
             elem: 'new-event',
             content: [
+                {
+                    block: 'b-time'
+                },
                 {
                     block: 'input',
                     mix: [{ block: 'b-diary', elem: 'new-event-title' }],
@@ -42,5 +55,5 @@ block b-diary {
             ]
         }
     ]
-	
+
 }

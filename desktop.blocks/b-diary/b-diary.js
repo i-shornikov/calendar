@@ -5,69 +5,63 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
         onSetMod: {
 
             'js': function() {
-                this.nextDateBtn = this.findBlockInside('next', 'button');
-                this.prevDateBtn = this.findBlockInside('preview', 'button');
+                this.nextDayBtn = this.findBlockInside('nextDay', 'button');
+                this.prevDayBtn = this.findBlockInside('previewDay', 'button');
+                this.nextMonthBtn = this.findBlockInside('nextMonth', 'button');
+                this.prevMonthBtn = this.findBlockInside('previewMonth', 'button');
                 this.newEventBtn = this.findBlockInside('new-event-btn', 'button');
                 this.newEventTitle = this.findBlockInside('new-event-title', 'input');
 
-                this.setDate();
-                this.getEvent();
+                this._setDate();
 
-                this.nextDateBtn.on('click', function() {this._nextDate()}, this);
-                this.prevDateBtn.on('click', function() {this._prevDate()}, this);
-                this.newEventBtn.on('click', function() {
-                    this.addEvent();
-                }, this);
+                this.nextDayBtn.on('click', function() {this._setDate(this.key,1,null)}, this);
+                this.prevDayBtn.on('click', function() {this._setDate(this.key,-1,null)}, this);
+                this.nextMonthBtn.on('click', function() {this._setDate(this.key,null,1)}, this);
+                this.prevMonthBtn.on('click', function() {this._setDate(this.key,null,-1)}, this);
+                this.newEventBtn.on('click', function() {this.addEvent()}, this);
             }
 
         },
 
-        setDate: function(value) {
-            var objDate;
+        /**
+         * _setDate - Устанавливает дату. Создает поле this.key с установленной датой.
+         *           В дальнейшем this.key используется как ключ для localStorage.
+         *           После установки даты вызывается метод для отоброжения событий.
+         * @param value - Принемает строку в формате "yyyy mm dd"
+         *                При отсудствующем парпаметре вызывается текущая дата.
+         * @param offsetDay - Смещение даты по дням. Принимает число - кол-во дней.
+         * @param offsetMonth - Смещение даты по месяцам. Принимает число - кол-во дней.
+         */
+        _setDate: function(value, offsetDay, offsetMonth) {
+            offsetDay = offsetDay || 0;
+            offsetMonth = offsetMonth || 0;
 
-            //value = value || 0;
-            !value ? objDate = new Date() : objDate = new Date(value);
+            var objDate = !value ? new Date() : new Date(value);
 
-            var date =  objDate.getDate();
-            var month = objDate.getMonth() + 1;
-            var year = objDate.getFullYear();
+            objDate.setDate(objDate.getDate() + offsetDay);
+            objDate.setMonth(objDate.getMonth() + offsetMonth);
 
-            date < 10 ? date = '0' + date : date;
-            month < 10 ? month = '0' + month : month;
-            this.key = date + '.' + month + '.' + year;;
+            var out,
+                date = objDate.getDate(),
+                month = objDate.getMonth() + 1,
+                year = objDate.getFullYear();
 
-            BEMDOM.update(this.elem('date'), this.key);
-        },
+            date = date < 10 ? '0' + date : date;
+            month = month < 10 ? '0' + month : month;
+            out = date + '.' + month + '.' + year;
+            this.key = year + ' ' + month + ' ' + date;
 
-        _nextDate: function() {
-            var date = this.key.split('.');
-            var day = date[0] * 1;
-            var month = date[1] * 1;
-            var year = date[2] * 1;
-            day++;
-            if ((month == 2) && (day == 29)) {day=01; month++};
-            if ( (day == 31) && ((month == 4) || (month == 6) || (month == 9) || (month == 11)) ) {day=1; month++};
-            if ( (day == 32) && (month == 12) ) {day=01; month=01; year++;};
-            if ( (day == 32) && (month < 12) ){day=01; month++};
-            this.setDate(year+' '+month+' '+day);
+            BEMDOM.update(this.elem('date'), out);
+
             this.getEvent();
         },
 
-        _prevDate: function() {
-            var date = this.key.split('.');
-            var day = date[0] * 1;
-            var month = date[1] * 1;
-            var year = date[2] * 1;
-            if (day == 1) {
-                day = 31;
-                if ( (month == 5) || (month == 7) || (month == 10) || (month == 12) ) {day=30;month--};
-                if (month == 3) {day=28; month--};
-                if (month == 1) {day=31; month=12; year--};
-            } else day--;
-            this.setDate(year+' '+month+' '+day);
-            this.getEvent();
-        },
-
+            /**
+             * addEvent - Метод считывает строку из input,
+             * вызывает прорисовку и обновляет localStorage
+             *
+             * @returns {this}
+             */
         addEvent: function() {
             var title = this.newEventTitle.getVal();
 
@@ -83,6 +77,12 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             return this;
         },
 
+            /**
+             * getEvent - Получает содержимое хранилища, преобразует его в массив.
+             * Массив записывается в поле this.event;
+             * Ключом является поле с установленной датой - this.key;
+             * Вызывает метод прорисовки страницы;
+             */
         getEvent: function() {
             this.events = JSON.parse(localStorage.getItem(this.key));
 
@@ -94,10 +94,16 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             this._renderEventsList();
         },
 
+            /**
+             * removeEvent - Метод удаляет событие из текущего списка (this.events)
+             * @param id - числовой параметр, является меткой для удаления конкретного события
+             * @returns {*}
+             */
         removeEvent: function(id) {
             for (var i = 0, l = this.events.length; i < l; i++) {
                 if (this.events[i].id === id) {
                     this.events.splice(i, 1);
+
                     if (!this.events.length) {
                         BEMDOM.update(this.elem('events-list'),
                             BEMHTML.apply({
@@ -116,6 +122,11 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             return this;
         },
 
+            /**
+             * _renderEventsList - Переберает текущие события (this.events),
+             * добовляет их на страницу.
+             * @returns {this}
+             */
         _renderEventsList: function() {
             var list = this.elem('events-list');
 
@@ -138,11 +149,15 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             return this;
         },
 
+            /**
+             * _updateStorage - Записывает в localStorage текущие события this.events
+             * @returns {this}
+             */
         _updateStorage: function() {
-            localStorage.setItem(this.key, JSON.stringify(this.events));
+                localStorage.setItem(this.key, JSON.stringify(this.events));
 
-            return this;
-        }
+                return this;
+            }
 
     },
     {

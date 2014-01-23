@@ -1,0 +1,45 @@
+.b-time {
+    display: inline-block;
+    padding: 0 10px;
+    font: italic 18pt 'Arial Black';
+    color: #5f6260;
+    float: left;
+    margin-top: -35px;
+}
+
+.b-hour, .b-min{
+    display: inline-block;
+    cursor: pointer;
+}
+
+a.b-hour__ctrlUp,
+a.b-hour__ctrlDown,
+a.b-min__ctrlUp,
+a.b-min__ctrlDown{
+    opacity: 0.2;
+}
+
+a.b-hour__ctrlUp:hover,
+a.b-hour__ctrlDown:hover,
+a.b-min__ctrlUp:hover,
+a.b-min__ctrlDown:hover{
+    opacity: 1;
+}
+
+.b-min{
+    padding: 0 6px;
+}
+
+a.b-hour__ctrlDown{
+    margin-right: 18px;
+}
+
+a.b-min__ctrlDown{
+    text-align: left;
+    margin-right: 12px;
+}
+
+a.b-min__ctrlUp{
+    text-align: right;
+    margin-left: 12px;
+}

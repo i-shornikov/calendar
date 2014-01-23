@@ -9,7 +9,7 @@
 
 h1.b-diary__header{
     color: #5f6260;
-    text-aligin: center;
+    text-align: center;
     display: block;
 }
 
@@ -59,5 +59,7 @@ h1.b-diary__header{
     background-color: #378de5;}
 
 .b-diary__new-event{
-    padding: 10px;
+    width: 350px;
+    padding: 35px;
+    margin: 0 auto;
 }

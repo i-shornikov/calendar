@@ -1,0 +1,47 @@
+block b-time {
+
+    js: true
+
+    content: [
+        {
+            block: 'b-hour',
+            mix: [{block: 'b-time', elem: 'hour'}],
+            content: [
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-hour', elem: 'ctrlUp' }],
+                    content: '&#9650'
+                },
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-hour', elem: 'data' }]
+                },
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-hour', elem: 'ctrlDown' }],
+                    content: '&#9660'
+                }
+            ]
+        },
+        {
+            block: 'b-min',
+            mix: [{block: 'b-time', elem: 'min'}],
+            content: [
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-min', elem: 'ctrlUp' }],
+                    content: '&#9650'
+                },
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-min', elem: 'data' }]
+                },
+                {
+                    block: 'link',
+                    mix: [{ block: 'b-min', elem: 'ctrlDown' }],
+                    content: '&#9660'
+                }
+            ]
+        }
+    ]
+}
