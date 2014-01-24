@@ -74,7 +74,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
 
             /**
              * addEvent - Метод считывает строку из input,
-             * вызывает прорисовку и обновляет localStorage
+             * вызывает сортировку, прорисовку и обновляет localStorage
              *
              * @returns {this}
              */
@@ -89,6 +89,8 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 id: Math.round(Math.random() * 10000) });
 
             this.newEventTitle.setVal('');
+
+            this.events.sort(this._sortTime);
 
             this
                 ._renderEventsList()
@@ -169,11 +171,16 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             return this;
         },
 
+            _sortTime: function (eventA, eventB) {
+                return eventA.time.replace(':','') - eventB.time.replace(':','') ;
+            },
+
             /**
              * _updateStorage - Записывает в localStorage текущие события this.events
              * @returns {this}
              */
         _updateStorage: function() {
+                //this.events.sort(this._sortTime);
                 localStorage.setItem(this.key, JSON.stringify(this.events));
 
                 return this;

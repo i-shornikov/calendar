@@ -9,7 +9,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.hour = this.findBlockInside('hour', 'b-hour');
                 this.min = this.findBlockInside('min', 'b-min');
 
-                this.time = [0,1];
+                this.time = [0,0];
                 this._renderTime();
 
 
@@ -30,8 +30,8 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
 
         _renderTime: function(){
 
-            var h = this.time[0],
-                m = this.time[1];
+            var h = parseInt(this.time[0]),
+                m = parseInt(this.time[1]);
 
             h = h < 10 ? '0' + h : h;
             m = m < 10 ? '0' + m : m;
@@ -49,8 +49,8 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
         },
 
         timeChange: function(field, value) {
-            var h = this.time[0],
-                m = this.time[1];
+            var h = parseInt(this.time[0]),
+                m = parseInt(this.time[1]);
 
             switch (field) {
                 case 'h':
