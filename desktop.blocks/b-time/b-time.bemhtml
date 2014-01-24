@@ -2,6 +2,7 @@ block b-time {
 
     js: true
 
+
     content: [
         {
             block: 'b-hour',

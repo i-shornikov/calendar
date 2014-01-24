@@ -13,6 +13,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.newEventTitle = this.findBlockInside('new-event-title', 'input');
 
                 this._setDate();
+                this.Time = this.findBlockInside('b-time').time;
 
                 this.nextDayBtn.on('click', function() {this._setDate(this.key,1,null)}, this);
                 this.prevDayBtn.on('click', function() {this._setDate(this.key,-1,null)}, this);
@@ -21,6 +22,21 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.newEventBtn.on('click', function() {this.addEvent()}, this);
             }
 
+        },
+
+            /**
+             * _timeFormat - приводит массив содержащий время [h,m,s] к формату [hh, mm, ss]
+             * @param array - массив для преоброзования
+             * @returns {array} - преобразованный массив
+             * @private
+             */
+        _timeFormat: function(array) {
+
+            for(var i=0; i<array.length; i++) {
+                array[i] = array[i] < 10 && (array[i]+'').length == 1 ? '0' + array[i]: array[i];
+            }
+
+            return array
         },
 
         /**
@@ -67,7 +83,11 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
 
             if (!title) return;
 
-            this.events.push({ title: title, id: Math.round(Math.random() * 10000) });
+            this.events.push({
+                time: this._timeFormat(this.Time).join(':'),
+                title: title,
+                id: Math.round(Math.random() * 10000) });
+
             this.newEventTitle.setVal('');
 
             this
@@ -141,7 +161,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             this.events.forEach(function(event) {
                 BEMDOM.append(list, BEMHTML.apply({
                     block: 'b-event',
-                    title: event.title,
+                    title: event.time + '&nbsp;&nbsp;&nbsp;&nbsp;' + event.title,
                     id: event.id
                 }));
             }, this);

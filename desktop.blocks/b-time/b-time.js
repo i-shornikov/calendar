@@ -1,6 +1,6 @@
-modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, dom, events, BEM) {
+modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, dom, events, BEMDOM) {
 
-    BEM.decl('b-time', {
+    BEMDOM.decl('b-time', {
 
         onSetMod: {
 
@@ -9,8 +9,9 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.hour = this.findBlockInside('hour', 'b-hour');
                 this.min = this.findBlockInside('min', 'b-min');
 
-                this.time = [4,0];
+                this.time = [0,1];
                 this._renderTime();
+
 
                 this.hour.findBlockInside('ctrlUp', 'link').on('click', function() {this.timeChange('h',1)}, this);
                 this.hour.findBlockInside('data', 'link').on('click', function() {
@@ -35,12 +36,12 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             h = h < 10 ? '0' + h : h;
             m = m < 10 ? '0' + m : m;
 
-            BEM.update(this.hour.elem('data'),
+            BEMDOM.update(this.hour.elem('data'),
                 BEMHTML.apply({
                     content: h + ' :'
                 }));
 
-            BEM.update(this.min.elem('data'),
+            BEMDOM.update(this.min.elem('data'),
                 BEMHTML.apply({
                     content: m
                 }));
@@ -60,7 +61,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                     }
 
                     this.time[0] = h;
-                    this._renderTime('h'); break;
+                    this._renderTime(); break;
 
                 case 'm':
                     m += value;
@@ -77,7 +78,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                     }
 
                     this.time[1] = m;
-                    this._renderTime('m'); break;
+                    this._renderTime(); break;
             }
 
         },
@@ -105,10 +106,10 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 event.returnValue = false;
                 t.trig ? t.timeChange(field, delta) : event.returnValue = true;
                 return delta;
-            });
+            }, false);
 
         }
 
         });
-    provide(BEM, $);
+    provide(BEMDOM, $);
 });

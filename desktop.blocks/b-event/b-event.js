@@ -7,6 +7,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             'js': function() {
 
                 this.findBlockOn('remove', 'link').on('click', this.remove, this);
+
             }
 
         },
