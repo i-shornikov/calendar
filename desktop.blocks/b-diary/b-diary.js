@@ -172,7 +172,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
         },
 
             _sortTime: function (eventA, eventB) {
-                return eventA.time.replace(':','') - eventB.time.replace(':','') ;
+                return eventA.time.replace(/:+/g,'') - eventB.time.replace(/:+/g,'') ;
             },
 
             /**
@@ -180,7 +180,6 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
              * @returns {this}
              */
         _updateStorage: function() {
-                //this.events.sort(this._sortTime);
                 localStorage.setItem(this.key, JSON.stringify(this.events));
 
                 return this;

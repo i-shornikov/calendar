@@ -9,7 +9,7 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.hour = this.findBlockInside('hour', 'b-hour');
                 this.min = this.findBlockInside('min', 'b-min');
 
-                this.time = [0,0];
+                this.time = [8,0];
                 this._renderTime();
 
 
@@ -28,6 +28,11 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
             }
         },
 
+        /**
+         * _renderTime - Прорисовка времени в формате HH : MM
+         * @private h (hour) - Часы
+         * @private m (minutes) - Минуты
+         */
         _renderTime: function(){
 
             var h = parseInt(this.time[0]),
@@ -48,6 +53,11 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
 
         },
 
+        /**
+         * timeChange - Изменяет значение времени
+         * @param field - значение может быть только 'h' / 'm' - изменять часы или минуты
+         * @param value - числовое значение велечина на которую нужно изменить
+         */
         timeChange: function(field, value) {
             var h = parseInt(this.time[0]),
                 m = parseInt(this.time[1]);
@@ -83,6 +93,11 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
 
         },
 
+        /**
+         * _addHandler - следит за скролом на мышке и передает значение методу timeChange
+         * @param field - Текстовый параметр 'h' / 'm' указывает какое поле нужно изменить
+         * @private t - контекст родительского блока.
+         */
         _addHandler: function(field) {
             var t = this;
                this.trig = this.trig ? false : true;
