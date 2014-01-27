@@ -21,7 +21,6 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.prevMonthBtn.on('click', function() {this._setDate(this.key,null,-1)}, this);
                 this.newEventBtn.on('click', function() {this.addEvent()}, this);
             }
-
         },
 
             /**

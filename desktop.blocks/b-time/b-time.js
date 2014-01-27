@@ -9,21 +9,21 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 this.hour = this.findBlockInside('hour', 'b-hour');
                 this.min = this.findBlockInside('min', 'b-min');
 
-                this.time = [8,0];
+                this.time = [8, 0];
                 this._renderTime();
 
 
-                this.hour.findBlockInside('ctrlUp', 'link').on('click', function() {this.timeChange('h',1)}, this);
+                this.hour.findBlockInside('ctrlUp', 'link').on('click', function() {this.timeChange('h', 1)}, this);
                 this.hour.findBlockInside('data', 'link').on('click', function() {
                     this._addHandler('h');
                 }, this);
-                this.hour.findBlockInside('ctrlDown', 'link').on('click', function() {this.timeChange('h',-1)}, this);
+                this.hour.findBlockInside('ctrlDown', 'link').on('click', function() {this.timeChange('h', -1)}, this);
 
-                this.min.findBlockInside('ctrlUp', 'link').on('click', function() {this.timeChange('m',1)}, this);
+                this.min.findBlockInside('ctrlUp', 'link').on('click', function() {this.timeChange('m', 1)}, this);
                 this.min.findBlockInside('data', 'link').on('click', function() {
                     this._addHandler('m');
                 }, this);
-                this.min.findBlockInside('ctrlDown', 'link').on('click', function() {this.timeChange('m',-1)}, this);
+                this.min.findBlockInside('ctrlDown', 'link').on('click', function() {this.timeChange('m', -1)}, this);
 
             }
         },
@@ -96,17 +96,17 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
         /**
          * _addHandler - следит за скролом на мышке и передает значение методу timeChange
          * @param field - Текстовый параметр 'h' / 'm' указывает какое поле нужно изменить
-         * @private t - контекст родительского блока.
+         * @private _this - контекст родительского блока.
          */
         _addHandler: function(field) {
-            var t = this;
+            var _this = this;
                this.trig = this.trig ? false : true;
 
             window.addEventListener('mousewheel', function(){
                 var delta; // Направление скролла
-                // -1 - скролл вниз
-                // 1  - скролл вверх
+
                 event = event || window.event;
+
                 // Opera и IE работают со свойством wheelDelta
                 if (event.wheelDelta) {
                     delta = event.wheelDelta / 120;
@@ -116,10 +116,13 @@ modules.define('i-bem__dom', ['jquery', 'dom', 'events'], function(provide, $, d
                 } else if (event.detail) {
                     delta = -event.detail / 3;
                 }
+
                 // Запрещаем обработку события браузером по умолчанию
                 if (event.preventDefault)  event.preventDefault();
                 event.returnValue = false;
-                t.trig ? t.timeChange(field, delta) : event.returnValue = true;
+
+                _this.trig ? _this.timeChange(field, delta) : event.returnValue = true;
+
                 return delta;
             }, false);
 
